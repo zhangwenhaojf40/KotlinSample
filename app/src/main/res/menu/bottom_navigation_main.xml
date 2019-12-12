@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:icon="@mipmap/tab_home_normal"
+        android:title="首页"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_square"
+        android:enabled="true"
+        android:icon="@mipmap/tab_video_normal"
+        android:title="视频"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_wechat"
+        android:enabled="true"
+        android:icon="@mipmap/tab_micro_normal"
+        android:title="微头条"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_project"
+        android:enabled="true"
+        android:icon="@mipmap/tab_me_normal"
+        android:title="我的"
+        app:showAsAction="ifRoom" />
+
+</menu>
