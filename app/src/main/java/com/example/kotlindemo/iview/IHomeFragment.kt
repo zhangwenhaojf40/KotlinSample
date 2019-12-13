@@ -5,8 +5,8 @@ package com.example.kotlindemo.iview
  * Author: ZWH
  * Date:  2019/12/11 0011
  */
-interface IHomeFragment {
-    fun setViewPage()
+interface ImHomeFragment {
+    fun initViewPage()
 
 
 }

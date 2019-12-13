@@ -3,14 +3,14 @@ package com.example.kotlindemo.ui.fragment
 import android.os.Bundle
 import com.example.kotlindemo.R
 import com.example.kotlindemo.bean.Data
-import com.example.kotlindemo.iview.IPublicFragment
+import com.example.kotlindemo.iview.ImChatFragment
 
 /**
  * Desc:
  * Author: ZWH
  * Date:  2019/12/2 0002
  */
-class PublicFragment :BaseFragment(),IPublicFragment {
+class ChatFragment :BaseFragment(),ImChatFragment {
     override fun getBundles(arguments: Bundle) {
     }
 

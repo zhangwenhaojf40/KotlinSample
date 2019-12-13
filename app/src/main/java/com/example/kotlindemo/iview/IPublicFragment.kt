@@ -8,6 +8,6 @@ import com.example.kotlindemo.bean.Data
  * Author: ZWH
  * Date:  2019/12/6 0006
  */
-interface IPublicFragment {
-    fun loadData(publicFragmentBean: List<Data>)
+interface ImChatFragment {
+    fun loadData(mChatFragmentBean: List<Data>)
 }

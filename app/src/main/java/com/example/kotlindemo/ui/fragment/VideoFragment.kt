@@ -8,7 +8,7 @@ import com.example.kotlindemo.R
  * Author: ZWH
  * Date:  2019/12/2 0002
  */
-class SquareFragment :BaseFragment() {
+class VideoFragment :BaseFragment() {
     override fun getBundles(arguments: Bundle) {
     }
 

@@ -6,7 +6,7 @@ package com.example.kotlindemo.bean
  * Date:  2019/12/3 0003
  */
 
-data class PublicFragmentBean(
+data class mChatFragmentBean(
     val `data`: List<Data>,
     val errorCode: Int,
     val errorMsg: String

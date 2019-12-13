@@ -1,5 +1,6 @@
 package com.example.kotlindemo.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlindemo.R
@@ -18,10 +19,13 @@ class NewsFragment :BaseFragmentMvp<NewsFragmentPresent>(), INewsFragment {
     var list=ArrayList<NewsBean>()
     var  mAdapter:NewsFragmentAdapter?=null
 
-    override fun setAdapter() {
+    override fun initAdapter() {
         mAdapter=NewsFragmentAdapter(mCode,list)
         mRecyclerViewe.layoutManager=LinearLayoutManager(activity)
         mRecyclerViewe.adapter=mAdapter
+        mAdapter?.setOnItemClickListener { adapter, view, position ->
+
+        }
     }
 
     override fun loadDataList(list: ArrayList<NewsBean>, info: String) {
@@ -49,7 +53,7 @@ class NewsFragment :BaseFragmentMvp<NewsFragmentPresent>(), INewsFragment {
     override fun getLayoutRes(): Int = R.layout.fragment_news
 
     override fun initData() {
-        setAdapter()
+        initAdapter()
         mPresent?.setNetList(mCode!!)
 
     }

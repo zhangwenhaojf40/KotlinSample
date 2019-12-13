@@ -1,100 +1,108 @@
 package com.example.kotlindemo.ui.activity
 
-import androidx.fragment.app.FragmentTransaction
+import android.os.Bundle
 import com.example.kotlindemo.R
+import com.example.kotlindemo.bottom.TabUtils
 import com.example.kotlindemo.present.MainPresent
-import com.example.kotlindemo.ui.fragment.HomeFragment
-import com.example.kotlindemo.ui.fragment.ProjectFragment
-import com.example.kotlindemo.ui.fragment.PublicFragment
-import com.example.kotlindemo.ui.fragment.SquareFragment
-import kotlinx.android.synthetic.main.activity_main.*
-
+import com.example.kotlindemo.ui.fragment.*
+import com.flyco.tablayout.CommonTabLayout
+import com.flyco.tablayout.listener.OnTabSelectListener
+import kotlinx.android.synthetic.main.fragment_home.*
 class MainActivity : BaseActivity<MainPresent>() {
-    override fun initPresent(): MainPresent? =MainPresent()
-    var homeFragment: HomeFragment? = null
-    var squareFragment: SquareFragment? = null
-    var publicFragment: PublicFragment? = null
-    var projectFragment: ProjectFragment? = null
-
+    override fun initPresent(): MainPresent? = MainPresent()
+    var mHomeFragment: HomeFragment? = null
+    var mVideoFragment: VideoFragment? = null
+    var mChatFragment: ChatFragment? = null
+    var mMeFragment: MeFragment? = null
+    val TAG_HOME = "home"
+    val TAG_VIDEO = "video"
+    val TAG_CHAT = "chat"
+    val TAG_ME = "me"
+    val CURRENT_POSITION = "current"
+    var mCurrentPosition = 0
+    val mFragments=ArrayList<BaseFragment>()
     override fun initView() {
-        bottomView.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.action_home -> {
-                    showFragment(0)
-                }
-                R.id.action_square -> {
-                    showFragment(1)
-                }
-                R.id.action_wechat -> {
-                    showFragment(2)
-                }
-                R.id.action_project -> {
-                    showFragment(3)
-                }
+        initTabLayout()
+    }
 
+    private fun initTabLayout() {
+        val tabUtils=TabUtils()
+        val vBottomTabLayout = findViewById<CommonTabLayout>(R.id.vBottomTabLayout)
+        tabUtils.setData(vBottomTabLayout)
+        vBottomTabLayout.setOnTabSelectListener(object :OnTabSelectListener{
+            override fun onTabSelect(position: Int) {
+                switchFragment(position)
             }
-            return@setOnNavigationItemSelectedListener true
-        }
-        showFragment(0)
+            override fun onTabReselect(position: Int) {
+            }
 
+        })
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initFragment(savedInstanceState)
+    }
+
+    private fun initFragment(bundle: Bundle?) {
+        val beginTransaction=supportFragmentManager.beginTransaction()
+        mFragments.clear()
+        mCurrentPosition = bundle?.getInt("", 0) ?: 0
+        mHomeFragment = supportFragmentManager.findFragmentByTag(TAG_HOME) as HomeFragment?
+
+        if (mHomeFragment != null) {
+            mVideoFragment = supportFragmentManager.findFragmentByTag(TAG_VIDEO) as VideoFragment?
+            mChatFragment = supportFragmentManager.findFragmentByTag(TAG_CHAT) as ChatFragment?
+            mMeFragment = supportFragmentManager.findFragmentByTag(TAG_ME) as MeFragment?
+        } else {
+            if (mHomeFragment == null) {
+                mHomeFragment = HomeFragment()
+                beginTransaction.add(R.id.content, mHomeFragment!!,TAG_HOME)
+            }
+            if (mVideoFragment == null) {
+                mVideoFragment = VideoFragment()
+                beginTransaction.add(R.id.content, mVideoFragment!!,TAG_VIDEO)
+            }
+            if (mChatFragment == null) {
+                mChatFragment = ChatFragment()
+                beginTransaction.add(R.id.content, mChatFragment!!,TAG_CHAT)
+            }
+            if (mMeFragment == null) {
+                mMeFragment = MeFragment()
+                beginTransaction.add(R.id.content, mMeFragment!!,TAG_ME)
+            }
+        }
+        mFragments.add(mHomeFragment!!)
+        mFragments.add(mVideoFragment!!)
+        mFragments.add(mChatFragment!!)
+        mFragments.add(mMeFragment!!)
+        beginTransaction.commit()
+        switchFragment(mCurrentPosition)
     }
 
     override fun initData() {
 
-        val sum1 = sum(3, 5)
     }
 
     override fun getLayoutRes(): Int = R.layout.activity_main
 
-    fun showFragment(index: Int) {
-        val beginTransaction = supportFragmentManager.beginTransaction()
-        hideFragments(beginTransaction)
-        when (index) {
-            0 -> {
-                if (homeFragment == null) {
-                    homeFragment = HomeFragment()
-                    beginTransaction.add(R.id.content, homeFragment!!)
-                }
-                beginTransaction.show(homeFragment!!)
+    fun switchFragment(index: Int) {
+        val beginTransaction=supportFragmentManager.beginTransaction()
+        for(i in mFragments.indices){
+            if(index==i){
+                beginTransaction.show(mFragments.get(i))
+            }else{
+                beginTransaction.hide(mFragments.get(i))
             }
-            1 -> {
-                if (squareFragment == null) {
-                    squareFragment = SquareFragment()
-                    beginTransaction.add(R.id.content, squareFragment!!)
-                }
-                beginTransaction.show(squareFragment!!)
-            }
-            2 -> {
-                if (publicFragment == null) {
-                    publicFragment = PublicFragment()
-                    beginTransaction.add(R.id.content, publicFragment!!)
-                }
-                beginTransaction.show(publicFragment!!)
-            }
-            3 -> {
-                if (projectFragment == null) {
-                    projectFragment = ProjectFragment()
-                    beginTransaction.add(R.id.content, projectFragment!!)
-                }
-                beginTransaction.show(projectFragment!!)
-            }
-
         }
         beginTransaction.commit()
-
     }
 
-    private fun hideFragments(transaction: FragmentTransaction) {
-        homeFragment?.let { transaction.hide(it) }
-        squareFragment?.let { transaction.hide(it) }
-        publicFragment?.let { transaction.hide(it) }
-        projectFragment?.let { transaction.hide(it) }
-
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        if (tabLayout != null) {
+            outState.putInt(CURRENT_POSITION, tabLayout.selectedTabPosition)
+        }
     }
 
-    val sum: (Int , Int)->Int = {x , y -> x + y}
-
-    val b=fun( a:Int):Int{
-        return a
-    }
 }

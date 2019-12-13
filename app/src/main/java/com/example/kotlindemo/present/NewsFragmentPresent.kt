@@ -26,7 +26,7 @@ class NewsFragmentPresent(val mView:INewsFragment) :BasePresent() {
                 override fun onNext(bean: NewsResponse) {
                     val datas = bean.data
                     var news=ArrayList<NewsBean>()
-                    if(bean.data?.size!!>0){
+                    if(bean.data?.size?:0>0){
                         for(i in datas?.indices!!){
                             val newsBean=Gson().fromJson<NewsBean>(bean.data.get(i).content, NewsBean::class.java)
                             newsBean.itemType=NewsFragmentAdapter.TEXT_NEWS

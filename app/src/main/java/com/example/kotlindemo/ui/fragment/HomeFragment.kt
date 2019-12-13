@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.kotlindemo.R
 import com.example.kotlindemo.adapter.HomeFragmentViewpage
-import com.example.kotlindemo.iview.IHomeFragment
+import com.example.kotlindemo.iview.ImHomeFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -12,13 +12,13 @@ import kotlinx.android.synthetic.main.fragment_home.*
  * Author: ZWH
  * Date:  2019/12/2 0002
  */
-class HomeFragment :BaseFragment(),IHomeFragment {
+class HomeFragment :BaseFragment(),ImHomeFragment {
     override fun getBundles(arguments: Bundle) {
 
     }
 
     val fragments=ArrayList<Fragment>()
-    override fun setViewPage() {
+    override fun initViewPage() {
         val channels = resources.getStringArray(R.array.channel)
         val codes = resources.getStringArray(R.array.channel_code)
         for (i in channels.indices){
@@ -29,9 +29,10 @@ class HomeFragment :BaseFragment(),IHomeFragment {
             newsFragment.arguments=bundle
             fragments.add(newsFragment)
         }
-        val mAdapter=HomeFragmentViewpage(fragments,channels,fragmentManager!!)
-        viewPage.adapter=mAdapter
-        tabLayout.setupWithViewPager(viewPage)
+        val mAdapter= HomeFragmentViewpage(fragments,channels,fragmentManager!!)
+        mViewPage.adapter=mAdapter
+        tabLayout.setupWithViewPager(mViewPage)
+//        mViewPage.offscreenPageLimit=channels.size
     }
 
 
@@ -39,7 +40,7 @@ class HomeFragment :BaseFragment(),IHomeFragment {
     }
 
     override fun initView() {
-        setViewPage()
+        initViewPage()
     }
 
     override fun getLayoutRes(): Int = R.layout.fragment_home

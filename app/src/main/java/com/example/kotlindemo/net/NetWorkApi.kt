@@ -1,8 +1,8 @@
 package com.example.kotlindemo.net
 
-import com.example.kotlindemo.bean.HomeFragmentBean
+import com.example.kotlindemo.bean.mHomeFragmentBean
 import com.example.kotlindemo.bean.NewsResponse
-import com.example.kotlindemo.bean.PublicFragmentBean
+import com.example.kotlindemo.bean.mChatFragmentBean
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

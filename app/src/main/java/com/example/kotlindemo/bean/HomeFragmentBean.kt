@@ -6,6 +6,6 @@ package com.example.kotlindemo.bean
  * Date:  2019/12/3 0003
  */
 
-class HomeFragmentBean {
+class mHomeFragmentBean {
     var age:Int?=null;
 }

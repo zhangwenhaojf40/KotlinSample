@@ -11,5 +11,5 @@ import com.example.kotlindemo.bean.NewsBean
 interface INewsFragment {
     fun loadDataList(list:ArrayList<NewsBean>,info:String)
 
-    fun setAdapter()
+    fun initAdapter()
 }
