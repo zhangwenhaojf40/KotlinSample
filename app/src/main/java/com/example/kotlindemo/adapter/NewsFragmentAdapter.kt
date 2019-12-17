@@ -3,9 +3,7 @@ package com.example.kotlindemo.adapter
 import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
-import androidx.transition.Visibility
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.kotlindemo.R
 import com.example.kotlindemo.bean.NewsBean
@@ -74,7 +72,7 @@ class NewsFragmentAdapter :BaseMultiItemQuickAdapter<NewsBean,BaseViewHolder> {
                     GlideUtils.setGlide(helper.getView(R.id.iv_img),item.video_detail_info?.detail_video_large_image?.url)
                 } else {
                     helper.setVisible(R.id.iv_play, false)//隐藏播放按钮
-                    if (item.gallary_image_count === 1) {
+                    if (item.gallary_image_count == 1) {
                         tvBottomRight.setCompoundDrawables(null, null, null, null)//去除TextView左侧图标
                     } else {
                         tvBottomRight.setCompoundDrawables(

@@ -24,7 +24,6 @@ class NewsFragment :BaseFragmentMvp<NewsFragmentPresent>(), INewsFragment {
         mRecyclerViewe.layoutManager=LinearLayoutManager(activity)
         mRecyclerViewe.adapter=mAdapter
         mAdapter?.setOnItemClickListener { adapter, view, position ->
-
         }
     }
 

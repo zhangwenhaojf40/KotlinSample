@@ -36,17 +36,14 @@ object  Api {
         )
         it.proceed(builder.build())
     }
-    val loggingInterceptor=HttpLoggingInterceptor(HttpLoggingInterceptor.Logger{messsage->
-        Log.i("RetrofitLog", "retrofitBack = $messsage")
 
-    })
     private val okHttpClient:OkHttpClient=
         OkHttpClient.Builder()
             .connectTimeout(DEFAULT_TIMEOUT.toLong(), TimeUnit.SECONDS)
             .readTimeout(DEFAULT_TIMEOUT.toLong(), TimeUnit.SECONDS)
             .writeTimeout(DEFAULT_TIMEOUT.toLong(), TimeUnit.SECONDS)
 //            .addInterceptor(mHeaderInterceptor)
-            .addInterceptor(loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
     init {
         mRetrofit=Retrofit.Builder()
