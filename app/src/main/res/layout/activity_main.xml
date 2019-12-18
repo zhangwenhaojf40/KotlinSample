@@ -7,11 +7,10 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <FrameLayout
+    <com.example.kotlindemo.widget.NoScrollViewPager
         android:layout_width="match_parent"
-        android:id="@+id/content"
         android:layout_weight="1"
+        android:id="@+id/mViewPage"
         android:layout_height="0dp" />
-
     <include layout="@layout/include_bottom" />
 </LinearLayout>

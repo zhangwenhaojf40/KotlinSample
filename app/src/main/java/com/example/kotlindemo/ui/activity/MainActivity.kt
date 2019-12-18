@@ -2,12 +2,14 @@ package com.example.kotlindemo.ui.activity
 
 import android.os.Bundle
 import com.example.kotlindemo.R
+import com.example.kotlindemo.adapter.MainViewPageAdapter
 import com.example.kotlindemo.bottom.TabUtils
 import com.example.kotlindemo.present.MainPresent
 import com.example.kotlindemo.ui.fragment.*
 import com.flyco.tablayout.CommonTabLayout
 import com.flyco.tablayout.listener.OnTabSelectListener
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.mViewPage
+
 class MainActivity : BaseActivity<MainPresent>() {
     override fun initPresent(): MainPresent? = MainPresent()
     var mHomeFragment: HomeFragment? = null
@@ -31,7 +33,7 @@ class MainActivity : BaseActivity<MainPresent>() {
         tabUtils.setData(vBottomTabLayout)
         vBottomTabLayout.setOnTabSelectListener(object :OnTabSelectListener{
             override fun onTabSelect(position: Int) {
-                switchFragment(position)
+//                switchFragment(position)
             }
             override fun onTabReselect(position: Int) {
             }
@@ -41,10 +43,22 @@ class MainActivity : BaseActivity<MainPresent>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initFragment(savedInstanceState)
+//        initFragment(savedInstanceState)
+
     }
 
-    private fun initFragment(bundle: Bundle?) {
+    private fun initFragment1() {
+        mHomeFragment = HomeFragment()
+        mVideoFragment= VideoFragment()
+        mChatFragment= ChatFragment()
+        mMeFragment = MeFragment()
+        mFragments.add(mHomeFragment!!)
+        mFragments.add(mVideoFragment!!)
+        mFragments.add(mChatFragment!!)
+        mFragments.add(mMeFragment!!)
+    }
+
+    private fun initFragment(bundle: Bundle?) {/*
         val beginTransaction=supportFragmentManager.beginTransaction()
         mFragments.clear()
         mCurrentPosition = bundle?.getInt("", 0) ?: 0
@@ -78,15 +92,23 @@ class MainActivity : BaseActivity<MainPresent>() {
         mFragments.add(mMeFragment!!)
         beginTransaction.commit()
         switchFragment(mCurrentPosition)
-    }
+    */}
 
     override fun initData() {
+        initFragment1()
+        initAdapter()
+
+    }
+
+    private fun initAdapter() {
+        mViewPage.adapter= MainViewPageAdapter(supportFragmentManager,mFragments)
+        mViewPage.offscreenPageLimit=mFragments.size
 
     }
 
     override fun getLayoutRes(): Int = R.layout.activity_main
 
-    fun switchFragment(index: Int) {
+    /*fun switchFragment(index: Int) {
         val beginTransaction=supportFragmentManager.beginTransaction()
         for(i in mFragments.indices){
             if(index==i){
@@ -96,13 +118,13 @@ class MainActivity : BaseActivity<MainPresent>() {
             }
         }
         beginTransaction.commit()
-    }
+    }*/
 
-    override fun onSaveInstanceState(outState: Bundle) {
+   /* override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         if (tabLayout != null) {
             outState.putInt(CURRENT_POSITION, tabLayout.selectedTabPosition)
         }
-    }
+    }*/
 
 }

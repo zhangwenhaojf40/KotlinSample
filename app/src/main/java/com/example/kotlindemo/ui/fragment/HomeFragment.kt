@@ -29,7 +29,7 @@ class HomeFragment :BaseFragment(),ImHomeFragment {
             newsFragment.arguments=bundle
             fragments.add(newsFragment)
         }
-        val mAdapter= HomeFragmentViewpage(fragments,channels,fragmentManager!!)
+        val mAdapter= HomeFragmentViewpage(fragments,channels,childFragmentManager)
         mViewPage.adapter=mAdapter
         tabLayout.setupWithViewPager(mViewPage)
         mViewPage.offscreenPageLimit=channels.size
