@@ -32,7 +32,7 @@ class HomeFragment :BaseFragment(),ImHomeFragment {
         val mAdapter= HomeFragmentViewpage(fragments,channels,fragmentManager!!)
         mViewPage.adapter=mAdapter
         tabLayout.setupWithViewPager(mViewPage)
-//        mViewPage.offscreenPageLimit=channels.size
+        mViewPage.offscreenPageLimit=channels.size
     }
 
 

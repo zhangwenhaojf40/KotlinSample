@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlindemo.R
+import com.example.kotlindemo.TestActivity
 import com.example.kotlindemo.adapter.NewsFragmentAdapter
 import com.example.kotlindemo.bean.NewsBean
 import com.example.kotlindemo.iview.INewsFragment
@@ -24,6 +25,7 @@ class NewsFragment :BaseFragmentMvp<NewsFragmentPresent>(), INewsFragment {
         mRecyclerViewe.layoutManager=LinearLayoutManager(activity)
         mRecyclerViewe.adapter=mAdapter
         mAdapter?.setOnItemClickListener { adapter, view, position ->
+                startActivity(Intent(activity,TestActivity::class.java))
         }
     }
 
@@ -55,5 +57,15 @@ class NewsFragment :BaseFragmentMvp<NewsFragmentPresent>(), INewsFragment {
         initAdapter()
         mPresent?.setNetList(mCode!!)
 
+
+    }
+    var isFirst=true;
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        println("走不走====")
+        if(isFirst&&isVisibleToUser){//第一次并且可见
+//            mPresent?.setNetList(mCode!!)
+//            isFirst=false
+        }
     }
 }
