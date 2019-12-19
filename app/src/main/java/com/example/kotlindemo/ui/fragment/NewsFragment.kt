@@ -55,17 +55,14 @@ class NewsFragment :BaseFragmentMvp<NewsFragmentPresent>(), INewsFragment {
 
     override fun initData() {
         initAdapter()
-        mPresent?.setNetList(mCode!!)
-
 
     }
-    var isFirst=true;
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        println("走不走====")
-        if(isFirst&&isVisibleToUser){//第一次并且可见
-//            mPresent?.setNetList(mCode!!)
-//            isFirst=false
+    var isFirst=true
+    override fun onResume() {
+        super.onResume()
+        if(isFirst){
+            mPresent?.setNetList(mCode!!)
+            isFirst=false
         }
     }
 }

@@ -16,12 +16,6 @@ class MainActivity : BaseActivity<MainPresent>() {
     var mVideoFragment: VideoFragment? = null
     var mChatFragment: ChatFragment? = null
     var mMeFragment: MeFragment? = null
-    val TAG_HOME = "home"
-    val TAG_VIDEO = "video"
-    val TAG_CHAT = "chat"
-    val TAG_ME = "me"
-    val CURRENT_POSITION = "current"
-    var mCurrentPosition = 0
     val mFragments=ArrayList<BaseFragment>()
     override fun initView() {
         initTabLayout()
@@ -33,7 +27,7 @@ class MainActivity : BaseActivity<MainPresent>() {
         tabUtils.setData(vBottomTabLayout)
         vBottomTabLayout.setOnTabSelectListener(object :OnTabSelectListener{
             override fun onTabSelect(position: Int) {
-//                switchFragment(position)
+                mViewPage.setCurrentItem(position,false)
             }
             override fun onTabReselect(position: Int) {
             }
@@ -41,11 +35,6 @@ class MainActivity : BaseActivity<MainPresent>() {
         })
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        initFragment(savedInstanceState)
-
-    }
 
     private fun initFragment1() {
         mHomeFragment = HomeFragment()
@@ -57,42 +46,6 @@ class MainActivity : BaseActivity<MainPresent>() {
         mFragments.add(mChatFragment!!)
         mFragments.add(mMeFragment!!)
     }
-
-    private fun initFragment(bundle: Bundle?) {/*
-        val beginTransaction=supportFragmentManager.beginTransaction()
-        mFragments.clear()
-        mCurrentPosition = bundle?.getInt("", 0) ?: 0
-        mHomeFragment = supportFragmentManager.findFragmentByTag(TAG_HOME) as HomeFragment?
-
-        if (mHomeFragment != null) {
-            mVideoFragment = supportFragmentManager.findFragmentByTag(TAG_VIDEO) as VideoFragment?
-            mChatFragment = supportFragmentManager.findFragmentByTag(TAG_CHAT) as ChatFragment?
-            mMeFragment = supportFragmentManager.findFragmentByTag(TAG_ME) as MeFragment?
-        } else {
-            if (mHomeFragment == null) {
-                mHomeFragment = HomeFragment()
-                beginTransaction.add(R.id.content, mHomeFragment!!,TAG_HOME)
-            }
-            if (mVideoFragment == null) {
-                mVideoFragment = VideoFragment()
-                beginTransaction.add(R.id.content, mVideoFragment!!,TAG_VIDEO)
-            }
-            if (mChatFragment == null) {
-                mChatFragment = ChatFragment()
-                beginTransaction.add(R.id.content, mChatFragment!!,TAG_CHAT)
-            }
-            if (mMeFragment == null) {
-                mMeFragment = MeFragment()
-                beginTransaction.add(R.id.content, mMeFragment!!,TAG_ME)
-            }
-        }
-        mFragments.add(mHomeFragment!!)
-        mFragments.add(mVideoFragment!!)
-        mFragments.add(mChatFragment!!)
-        mFragments.add(mMeFragment!!)
-        beginTransaction.commit()
-        switchFragment(mCurrentPosition)
-    */}
 
     override fun initData() {
         initFragment1()
@@ -107,24 +60,5 @@ class MainActivity : BaseActivity<MainPresent>() {
     }
 
     override fun getLayoutRes(): Int = R.layout.activity_main
-
-    /*fun switchFragment(index: Int) {
-        val beginTransaction=supportFragmentManager.beginTransaction()
-        for(i in mFragments.indices){
-            if(index==i){
-                beginTransaction.show(mFragments.get(i))
-            }else{
-                beginTransaction.hide(mFragments.get(i))
-            }
-        }
-        beginTransaction.commit()
-    }*/
-
-   /* override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        if (tabLayout != null) {
-            outState.putInt(CURRENT_POSITION, tabLayout.selectedTabPosition)
-        }
-    }*/
 
 }
